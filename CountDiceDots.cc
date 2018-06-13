@@ -49,8 +49,10 @@ int main(int argc, char** argv)
     method- Hough_gradient
     minDist- key parameter, distance in pixels between center of detected dots
     */
+   for(int i=0;i<6;i++)
+   {
     //STEP1-convert image to grayscale
-    cv::Mat output=images[0].clone();
+    cv::Mat output=images[i].clone();
     cv::Mat gray; //to hold grayscale image
     cv::cvtColor(output, gray, CV_BGR2GRAY);
     //apply gaussian blur
@@ -59,18 +61,19 @@ int main(int argc, char** argv)
     //cv::adaptiveThreshold(gray, gray, 255, CV_ADAPTIVE_THRESH_MEAN_C, CV_THRESH_BINARY, 75, 30);
     cv::threshold(gray,gray,180,255.0,CV_THRESH_BINARY_INV);
     //cv::imshow("thresholded",gray);
-    //cv::waitKey(3000);
+    //cv::waitKey(0);
     vector<Vec3f> dots; //to store the information on dots
-    cv::HoughCircles(gray,dots,CV_HOUGH_GRADIENT,2,10,60.0,25.0,3,12);
+    cv::HoughCircles(gray,dots,CV_HOUGH_GRADIENT,2,15,60.0,30.0,5,17);
     
+    /*
     if(dots.size()==0)
     {
         cout<<"No dots found!! :("<<endl;
-        exit(0);
+        //exit(0);
     }
-    
-    else
-    {
+    */
+    //else
+    //{
 
         cout << "Number of dots: " << dots.size() << endl;
         //display detected circles
@@ -95,8 +98,9 @@ int main(int argc, char** argv)
         cv::imshow("image", output);
         cv::waitKey(0);
         //write it to disk
-        string output_path="../output images/output_0.png";
+        string output_path="../output images/output_"+to_string(i)+".png";
         cv::imwrite(output_path,output);
-    }
+    //} //end else
+   }
     return 0;
 }
