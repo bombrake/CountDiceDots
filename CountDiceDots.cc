@@ -196,7 +196,7 @@ int main(int argc, char** argv)
     //now display the image
     cv::namedWindow("image", CV_WINDOW_AUTOSIZE);
     cv::imshow("image", output);
-    cv::waitKey(0);
+    cv::waitKey(500);
     //write it to disk
     string output_path="../output images/output_"+to_string(i)+".png";
     cv::imwrite(output_path,output);
